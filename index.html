@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width", initial-scale="1.0">
+    <title>charmaine's calculator</title>
+    <link rel="stylesheet" href="calculatorstyle.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="calculator">
+            <input id="display" placeholder="0">
+            <br>
+            <div class="button-wrapper">
+                <button style="background: rgb(237, 179, 189); color: black;" class="btn" onclick="erase()">AC</button>
+                <button class="btn" onclick="powerof()">^</button>
+                <button style="background: rgb(237, 179, 189); color: black;" class="btn" onclick="del()">DEL</button>
+                <button style="background: rgb(126, 150, 183); color: white;" class="btn" onclick="press('/')">/</button>
+                
+                <br>
+                <button class="btn" onclick="press(7)">7</button>
+                <button class="btn" onclick="press(8)">8</button>
+                <button class="btn" onclick="press(9)">9</button>
+                <button style="background: rgb(126, 150, 183); color: white;" class="btn" onclick="press('*')">x</button>
+
+                <br>
+                <button class="btn" onclick="press(4)">4</button>
+                <button class="btn" onclick="press(5)">5</button>
+                <button class="btn" onclick="press(6)">6</button>
+                <button style="background: rgb(126, 150, 183); color: white;" class="btn" onclick="press('-')">-</button>
+
+                <br>
+                <button class="btn" onclick="press(1)">1</button>
+                <button class="btn" onclick="press(2)">2</button>
+                <button class="btn" onclick="press(3)">3</button>
+                <button style="background: rgb(126, 150, 183); color: white;" class="btn" onclick="press('+')">+</button>
+
+                <br>
+                <button class="btn" onclick="percentage()">%</button>
+                <button class="btn" onclick="press(0)">0</button>
+                <button class="btn" onclick="press('.')">.</button>
+                <button style="background: rgb(126, 150, 183); color: white;" class="btn" onclick="equals()">=</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    var input = document.getElementById("display");
+    var expression = '';
+    var display = '';
+
+    function press(num) {
+        expression += num;
+        display += num;
+        input.value = display;
+    }
+
+    function erase() {
+        expression = '';
+        display = '';
+        input.value = '';
+    }
+
+    function powerof() {
+        expression += '**';
+        display += '^';
+        input.value = display;
+    }
+
+    function del() {
+        if (display.slice(-1) === '%') {
+            expression = expression.slice(0, -4);
+        } else if (display.slice(-1) === '^') {
+            expression = expression.slice(0, -2);
+        } else {
+            expression = expression.slice(0, -1);
+        }
+
+        display = display.slice(0, -1);
+        input.value = display;
+    }
+
+    function percentage() {
+        expression += '/100';
+        display += '%';
+        input.value = display;
+    }
+
+    function equals() {
+        try {
+            const result = eval(expression);
+            input.value = result;
+        } catch (error) {
+            input.value = "Error";
+        }
+        expression = '';
+        display = '';
+    }
+</script>
+
+</html>
